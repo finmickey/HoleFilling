@@ -4,16 +4,12 @@ package org.mickey.holefilling;
  * This class holds corresponding image and a mask
  * Calculations based on both an image and a mask will happen here
  */
-
-
-//@TODO: change to static class with functions
-public class ImageAndMask {
+public class MaskedImage {
 
     private final FloatImage img;
     private final MaskSet mask;
 
-
-    public ImageAndMask(String img_path, String mask_path, boolean is4Connected) {
+    public MaskedImage(String img_path, String mask_path, boolean is4Connected) {
         this.img = new FloatImage(img_path);
         this.mask = new MaskSet(mask_path, is4Connected);
     }
@@ -40,7 +36,7 @@ public class ImageAndMask {
      * @param w a weight function of our choice
      * @return The image stored in this class with it's corresponding hole fixed with the avg value of I(u)
      */
-    public FloatImage fillEqual(WeightFunction w){
+    public FloatImage approximateFill(WeightFunction w){
 
         FloatImage filledImg = new FloatImage(this.img);
 

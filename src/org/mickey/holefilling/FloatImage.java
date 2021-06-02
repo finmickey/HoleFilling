@@ -9,8 +9,8 @@ import org.opencv.imgcodecs.Imgcodecs;
 public class FloatImage {
 
 
-    public final static float THRESHOLD = 128;
-    public final static float BRIGHTEST_PIXEL = 255;
+    public final static float THRESHOLD = 0.5f;
+    public final static float BRIGHTEST_PIXEL = 1;
     public final static float DARKEST_PIXEL = 0;
 
     private final float[][] img;
@@ -61,7 +61,7 @@ public class FloatImage {
         float[][] floatImage = new float[rows][cols];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                floatImage[i][j] = (float) mat.get(i, j)[0];
+                floatImage[i][j] = (float) mat.get(i, j)[0]/255.0f;
             }
         }
         return floatImage;
@@ -75,7 +75,7 @@ public class FloatImage {
         Mat m = new Mat(this.img.length,this.img[0].length, 0);
         for (int i=0; i<m.rows(); i++) {
             for (int j = 0; j < m.cols(); j++) {
-                m.put(i, j, this.img[i][j]);
+                m.put(i, j, this.img[i][j]*255);
             }
         }
         return m;
