@@ -14,6 +14,15 @@ public class FloatImage {
         this.img = img;
     }
 
+    public FloatImage(FloatImage toDup){
+        int height = toDup.getImg().length;
+        int width = toDup.getImg()[0].length;
+        float[][] newImg = new float[height][width];
+        for (int i=0; i<height; i++){
+            System.arraycopy(toDup.getImg()[i], 0, newImg[i], 0, width);
+        }
+        this.img = newImg;
+    }
     public static FloatImage readFloatImage(String address) {
         //@TODO: check if I'm allowed to use this to load the img in grayscale
         Mat mat = Imgcodecs.imread(address, 0);

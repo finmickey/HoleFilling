@@ -3,7 +3,6 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
-//@TODO: lambda stuff
 //@TODO: go over all typing, private/public and such
 
 public class Main {
@@ -13,24 +12,20 @@ public class Main {
      *
      * @param args = <image address> <mask address> <neighbor type = {4,8}>
      */
-    public static void main(String args[]){
-        //@TODO: move addresses input to args[]
-        String lenna_adr = "input/Lenna.png";
-        String mask_adr = "input/Mask2.png";
-        int neighbors = 4;
-        boolean is4Neighbors = (neighbors==4);
+    public static void main(String[] args){
 
-        FloatImage img = FloatImage.readFloatImage(lenna_adr);
-        MaskSet mask = MaskSet.readMaskImage(mask_adr, is4Neighbors);
-        ImageAndMask iam = new ImageAndMask(img,mask);
-        FloatImage newimg = iam.fill(new DefaultWeightFunction());
-        Mat m = new Mat(img.getImg().length,img.getImg()[0].length, 0);
+        String img_path = args[0];
+        String mask_path = args[1];
+        boolean is4Connected = (Integer.parseInt(args[2]) == 4); //Assuming valid input
 
-        //@TODO: works seperatly, not in the same time though
-        //Imgcodecs.imwrite("input/Border.png", iam.HighlightBorder().toMat());
-        Imgcodecs.imwrite("input/Fixed.png", newimg.toMat());
+        FloatImage img = FloatImage.readFloatImage(img_path);
+        MaskSet mask = MaskSet.readMaskImage(mask_path, is4Connected);
+        ImageAndMask imageMask = new ImageAndMask(img,mask);
+        FloatImage fixedImg = imageMask.fill(new DefaultWeightFunction());
 
-        System.out.println((5/2.0));
+        Imgcodecs.imwrite("out/ModifiedImages/Fixed.png", fixedImg.toMat());
+        Imgcodecs.imwrite("out/ModifiedImages/Border.png", imageMask.HighlightBorder().toMat());
+
 
     }
 }
