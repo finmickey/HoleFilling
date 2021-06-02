@@ -25,8 +25,10 @@ public class Main {
         MaskSet mask = MaskSet.readMaskImage(mask_path, is4Connected);
         ImageAndMask imageMask = new ImageAndMask(img,mask);
         FloatImage fixedImg = imageMask.fill(new DefaultWeightFunction());
+        FloatImage lazyFixImg = imageMask.fillEqual(new DefaultWeightFunction());
 
         Imgcodecs.imwrite("out/ModifiedImages/Fixed.png", fixedImg.toMat());
         Imgcodecs.imwrite("out/ModifiedImages/Border.png", imageMask.HighlightBorder().toMat());
+        Imgcodecs.imwrite("out/ModifiedImages/LazyFix.png", lazyFixImg.toMat());
     }
 }

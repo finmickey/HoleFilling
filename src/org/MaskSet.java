@@ -4,6 +4,7 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 /**
  * Holds the mask information as HashSets of the hole coordinates and border coordinates
@@ -67,5 +68,20 @@ public class MaskSet {
         return new MaskSet(hole, border);
     }
 
+    /*public LinkedHashSet<Coordinate> orderedBorder(boolean is4Connected){
+        LinkedHashSet<Coordinate> borderLinkedHashSet = new LinkedHashSet<Coordinate>();
+        Coordinate start = border.iterator().next();
 
+        borderLinkedHashSet.add(start);
+        while(true){
+            for (int dx = -1; dx < 2; dx++) {
+                for (int dy = -1; dy < 2; dy++)
+                    if (!(((Math.abs(dx) + Math.abs(dy)) == 2) && is4Connected)) //Check if the square is legal under neighbor's constrains
+                        if (!((dx == 0) && (dy == 0))) //Check if not centre square and is not a hole itself
+                            border.add(new Coordinate(x + dx, y + dy));
+        }
+        return borderLinkedHashSet;
+    }
+
+     */
 }
