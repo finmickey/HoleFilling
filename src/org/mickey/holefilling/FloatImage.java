@@ -1,4 +1,4 @@
-package org;
+package org.mickey.holefilling;
 
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -7,8 +7,20 @@ import org.opencv.imgcodecs.Imgcodecs;
  * Holds a float 2d array representing a grayscale image
  */
 public class FloatImage {
+
+
+    public final static float THRESHOLD = 128;
+    public final static float BRIGHTEST_PIXEL = 255;
+    public final static float DARKEST_PIXEL = 0;
+
     private final float[][] img;
 
+    public void setPixel(Coordinate c, float value){
+        img[c.getX()][c.getY()] = value;
+    }
+    public float getPixel(Coordinate c){
+        return img[c.getX()][c.getY()];
+    }
     public float[][] getImg() {
         return img;
     }
@@ -32,10 +44,10 @@ public class FloatImage {
      * @param path path to the image file
      * @return A new FloatImage object built from the image at path
      */
-    public static FloatImage readFloatImage(String path) {
-        //@TODO: check if I'm allowed to use this to load the img in grayscale
+
+    public FloatImage(String path){
         Mat mat = Imgcodecs.imread(path, 0);
-        return new FloatImage(MatToFloatImage(mat));
+        this.img = matToFloatImage(mat);
     }
 
     /**
@@ -43,7 +55,7 @@ public class FloatImage {
      * @param mat a Mat object that holds an image
      * @return a FloatImage object that represents the same image
      */
-    private static float[][] MatToFloatImage(Mat mat) {
+    private static float[][] matToFloatImage(Mat mat) {
         int rows = mat.rows();
         int cols = mat.cols();
         float[][] floatImage = new float[rows][cols];

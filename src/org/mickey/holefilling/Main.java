@@ -1,6 +1,9 @@
-import org.*;
+package org.mickey.holefilling;
+
+import org.mickey.holefilling.DefaultWeightFunction;
+import org.mickey.holefilling.FloatImage;
+import org.mickey.holefilling.ImageAndMask;
 import org.opencv.core.Core;
-import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
 //@TODO: go over all typing, private/public and such
@@ -32,4 +35,6 @@ public class Main {
         Imgcodecs.imwrite("out/ModifiedImages/LazyFix.png", lazyFixImg.toMat());
 
     }
+
+
 }

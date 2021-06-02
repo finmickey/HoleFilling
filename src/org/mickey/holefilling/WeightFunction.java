@@ -1,4 +1,4 @@
-package org;
+package org.mickey.holefilling;
 
 /**
  * Every weight function will follow this interface
@@ -8,3 +8,6 @@ public interface WeightFunction {
 
     float calculate(Coordinate u, Coordinate v);
 }
+
+
+

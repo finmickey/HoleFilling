@@ -1,28 +1,21 @@
-package org;
+package org.mickey.holefilling;
 
 /**
  * This class holds corresponding image and a mask
  * Calculations based on both an image and a mask will happen here
  */
+
+
+//@TODO: change to static class with functions
 public class ImageAndMask {
-    private FloatImage img;
-    private MaskSet mask;
 
-    public ImageAndMask(FloatImage img, MaskSet mask) {
-        this.img = img;
-        this.mask = mask;
-    }
+    private final FloatImage img;
+    private final MaskSet mask;
+
+
     public ImageAndMask(String img_path, String mask_path, boolean is4Connected) {
-        this.img = FloatImage.readFloatImage(img_path);
-        this.mask = MaskSet.readMaskImage(mask_path, is4Connected);
-    }
-
-    public FloatImage getImg() {
-        return img;
-    }
-
-    public MaskSet getMask() {
-        return mask;
+        this.img = new FloatImage(img_path);
+        this.mask = new MaskSet(mask_path, is4Connected);
     }
 
     /**
@@ -36,7 +29,7 @@ public class ImageAndMask {
 
         for (Coordinate hole_coordinate : this.mask.getHole()) {
            float Iu = calculateI(hole_coordinate, w);
-            filledImg.getImg()[hole_coordinate.getX()][hole_coordinate.getY()] = Iu;
+            filledImg.setPixel(hole_coordinate, Iu);
         }
         return filledImg;
     }
@@ -66,7 +59,7 @@ public class ImageAndMask {
 
         //Fill the hole with avgI
         for (Coordinate hole_coordinate : this.mask.getHole()) {
-            filledImg.getImg()[hole_coordinate.getX()][hole_coordinate.getY()] = avgI;
+            filledImg.setPixel(hole_coordinate, avgI);
         }
 
         return filledImg;
@@ -83,7 +76,7 @@ public class ImageAndMask {
         float denominator = 0;
         for (Coordinate border_coordinate : this.mask.getBorder()) {
             float wFunctionResult = w.calculate(u, border_coordinate);
-            numerator += wFunctionResult * this.img.getImg()[border_coordinate.getX()][border_coordinate.getY()];
+            numerator += wFunctionResult * img.getPixel(border_coordinate);
             denominator += wFunctionResult;
         }
         return numerator / denominator;
@@ -98,17 +91,17 @@ public class ImageAndMask {
         FloatImage highlightedImg = new FloatImage(this.img);
 
         for (Coordinate c : this.mask.getBorder()){
-            highlightedImg.getImg()[c.getX()][c.getY()] = 255;
+            highlightedImg.setPixel(c, FloatImage.BRIGHTEST_PIXEL);
         }
         for (Coordinate c : this.mask.getHole()){
-            highlightedImg.getImg()[c.getX()][c.getY()] = 0;
+            highlightedImg.setPixel(c, FloatImage.DARKEST_PIXEL);
         }
         return highlightedImg;
     }
 
     /**
      * This function is not in use but is added for support of future functions that take normalized FloatImage as an input.
-     * @return a FloatImage where the values are normilized from [0,255] to [0,1] and hole pixels have a value of -1
+     * @return a FloatImage where the values are normalized from [0,255] to [0,1] and hole pixels have a value of -1
      */
     public FloatImage normalizeAndInsertHole(){
         int rows = this.img.getImg().length;
