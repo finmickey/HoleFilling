@@ -28,6 +28,5 @@ public class Main {
 
         Imgcodecs.imwrite("out/ModifiedImages/Fixed.png", fixedImg.toMat());
         Imgcodecs.imwrite("out/ModifiedImages/Border.png", imageMask.HighlightBorder().toMat());
-
     }
 }
