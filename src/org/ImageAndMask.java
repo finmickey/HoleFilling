@@ -106,4 +106,23 @@ public class ImageAndMask {
         return highlightedImg;
     }
 
+    /**
+     * This function is not in use but is added for support of future functions that take normalized FloatImage as an input.
+     * @return a FloatImage where the values are normilized from [0,255] to [0,1] and hole pixels have a value of -1
+     */
+    public FloatImage normalizeAndInsertHole(){
+        int rows = this.img.getImg().length;
+        int cols = this.img.getImg()[0].length;
+        float[][] normalized = new float[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                normalized[i][j] = this.img.getImg()[i][j] / 255;
+            }
+        }
+        for (Coordinate hole_coordinate : this.mask.getHole()){
+            normalized[hole_coordinate.getY()][hole_coordinate.getY()] = -1;
+        }
+        return new FloatImage(normalized);
+    }
+
 }
