@@ -9,8 +9,11 @@ public class Main {
     static {System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
 
     /**
-     *
+     * main will write the new images to out/ModifiedImages
+     * Fixed.png = the image with the hole fixed
+     * Border.png = the image with a highlighted hole (mostly for testing purposes)
      * @param args = <image address> <mask address> <neighbor type = {4,8}>
+     *
      */
     public static void main(String[] args){
 
@@ -25,7 +28,6 @@ public class Main {
 
         Imgcodecs.imwrite("out/ModifiedImages/Fixed.png", fixedImg.toMat());
         Imgcodecs.imwrite("out/ModifiedImages/Border.png", imageMask.HighlightBorder().toMat());
-
 
     }
 }

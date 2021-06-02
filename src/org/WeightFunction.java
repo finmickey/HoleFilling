@@ -1,6 +1,10 @@
 package org;
 
+/**
+ * Every weight function will follow this interface
+ * Takes two coordinates and returns the calculation value as a float
+ */
 public interface WeightFunction {
-    //@TODO: how to make this take any number of params?
+
     float calculate(Coordinate u, Coordinate v);
 }

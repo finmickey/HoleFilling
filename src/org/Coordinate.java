@@ -2,7 +2,9 @@ package org;
 
 import java.util.Objects;
 
-
+/**
+ * Holds a coordinate of a single point in the image
+ */
 public class Coordinate {
     private int x;
     private int y;
@@ -36,6 +38,10 @@ public class Coordinate {
         return getX() == that.getX() && getY() == that.getY();
     }
 
+    /**
+     * Overides the hash function of Coordinate to identify it by (X,Y) and not by the reference address
+     * @return hash value of (X,Y)
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getX(), getY());

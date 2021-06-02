@@ -1,5 +1,9 @@
 package org;
 
+/**
+ * This class holds corresponding image and a mask
+ * Calculations based on both an image and a mask will happen here
+ */
 public class ImageAndMask {
     private FloatImage img;
     private MaskSet mask;
@@ -17,6 +21,11 @@ public class ImageAndMask {
         return mask;
     }
 
+    /**
+     *
+     * @param w - a weight function of our choice
+     * @return The image stored in this class with it's corresponding hole fixed
+     */
     public FloatImage fill(WeightFunction w) {
 
         FloatImage filledImg = new FloatImage(this.img);
@@ -34,6 +43,10 @@ public class ImageAndMask {
         return filledImg;
     }
 
+    /**
+     *
+     * @return The image stored in this class with it's corresponding hole highlighted
+     */
     public FloatImage HighlightBorder(){
 
         FloatImage highlightedImg = new FloatImage(this.img);
