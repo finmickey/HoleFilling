@@ -12,6 +12,10 @@ public class ImageAndMask {
         this.img = img;
         this.mask = mask;
     }
+    public ImageAndMask(String img_path, String mask_path, boolean is4Connected) {
+        this.img = FloatImage.readFloatImage(img_path);
+        this.mask = MaskSet.readMaskImage(mask_path, is4Connected);
+    }
 
     public FloatImage getImg() {
         return img;

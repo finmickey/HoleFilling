@@ -17,18 +17,19 @@ public class Main {
      */
     public static void main(String[] args){
 
+        //Assuming valid input
         String img_path = args[0];
         String mask_path = args[1];
-        boolean is4Connected = (Integer.parseInt(args[2]) == 4); //Assuming valid input
+        boolean is4Connected = (Integer.parseInt(args[2]) == 4);
 
-        FloatImage img = FloatImage.readFloatImage(img_path);
-        MaskSet mask = MaskSet.readMaskImage(mask_path, is4Connected);
-        ImageAndMask imageMask = new ImageAndMask(img,mask);
+        ImageAndMask imageMask = new ImageAndMask(img_path,mask_path, is4Connected);
+
         FloatImage fixedImg = imageMask.fill(new DefaultWeightFunction());
         FloatImage lazyFixImg = imageMask.fillEqual(new DefaultWeightFunction());
 
         Imgcodecs.imwrite("out/ModifiedImages/Fixed.png", fixedImg.toMat());
         Imgcodecs.imwrite("out/ModifiedImages/Border.png", imageMask.HighlightBorder().toMat());
         Imgcodecs.imwrite("out/ModifiedImages/LazyFix.png", lazyFixImg.toMat());
+
     }
 }
